@@ -13,6 +13,8 @@
 - [php artisan serve]
 - [npm run watch]
 
-<video width="720" height="480" controls>
-  <source src="https://loxich.dev/insta.mp4" type="video/mp4">
-</video>
+
+https://loxich.dev/insta.mp4
+https://user-images.githubusercontent.com/47781861/127235842-d4220cf1-ebf1-4c68-b72d-24cb1ff88aa1.mp4
+
+
