@@ -14,7 +14,8 @@
 - [npm run watch]
 
 
-https://loxich.dev/insta.mp4
+<a href="https://loxich.dev/insta.mp4">Short video preview</a>
+
 https://user-images.githubusercontent.com/47781861/127235842-d4220cf1-ebf1-4c68-b72d-24cb1ff88aa1.mp4
 
 
