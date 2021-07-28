@@ -129,10 +129,14 @@ Route::get('/delall', function() {
 
 
 // Fire
-Route::get('/post/like/{id}', function($id) {
-    $post = Post::find($id);
+Route::put('/post/like/', function(Request $request) {
+    $post = Post::find($request->post_id);
     $likes = $post->likes += 1;
     $post->save();
+
+    $user = User::find($request->author_id);
+    $user->likes += 1;
+    $user->save();
 
     // return redirect('/');
     // return Inertia::render('/', ['likes' => $likes]);
@@ -150,6 +154,10 @@ Route::post('/post', function(Request $request) {
         'text' => 'required|max:255',
         'image' => 'required',
     ]);
+
+    $user = User::find(Auth::user()->id);
+    $user->posts += 1;
+    $user->save();
 
     $newImageName = time() . '-' . Auth::user()->username . '.' . $request->image->extension();
     // $image = (strlen($request->image) > 0) ? $request->file('file')->store('uploads') : "empty";

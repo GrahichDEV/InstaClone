@@ -71,4 +71,5 @@ export default {
 .w-custom-350 {
     width: 350px;
 }
+
 </style>

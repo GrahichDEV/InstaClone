@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Navigation :auth="auth" />
+        <Navigation class="z-50" :auth="auth" />
         <div class="mt-20 w-custom-955 m-auto flex py-8">
             <div class="w-8/12 px-1">
                 <Post v-for="(post, index) in posts" :key="index" :post="post" v-on:fireReload="fire(index)"/>

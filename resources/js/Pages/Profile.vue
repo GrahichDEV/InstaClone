@@ -40,7 +40,7 @@
                     <div class="post-full relative">
                         <img class="post-image object-cover h-80 w-80 p-2" :src="'../uploads/posts/' + post.image">
                         <div class="post-likes absolute top-36 right-36 bg-black h-11 h-11 text-sm font-medium text-center rounded-full p-3 text-white m-auto">
-                            <i class="fas fa-fire mr-1"></i> 000{{ post.likes }}
+                            <i class="fas fa-fire mr-1"></i>{{ post.likes }}
                         </div>
                     </div>
                 </div>
@@ -103,4 +103,5 @@ export default {
 .w-custom-955 {
     width: 960px;
 }
+
 </style>
