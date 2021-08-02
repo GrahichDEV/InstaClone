@@ -24,7 +24,7 @@
                         <li class="p-1"><img class="inline object-cover w-6 h-6 mr-2 rounded-full border border-gray-300" :src="'/uploads/profile/' + auth.image"/></li>
                     </button>
                     </span>
-                    <div class="z-50 opacity-0 invisible dropdown-menu transition-all duration-300 transform origin-top-right -translate-y-2 scale-95">
+                    <div class="z-40 opacity-0 invisible dropdown-menu transition-all duration-300 transform origin-top-right -translate-y-2 scale-95">
                         <div class="absolute right-0 w-56 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none" aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
                             <!--
                             <div class="px-4 py-3">
@@ -41,7 +41,7 @@
                                 </div>
                                 </Link>
 
-                                <Link href="">
+                                <Link :href="'/profile/' + auth.username">
                                 <div tabindex="1" class="text-gray-700 flex w-full px-4 py-2 text-sm leading-5 text-left"  role="menuitem" >
                                     <svg aria-label="Saved" class="mr-3" fill="#262626" height="19" role="img" viewBox="0 0 32 32" width="19">
                                         <path d="M28.7 32c-.4 0-.8-.2-1.1-.4L16 19.9 4.4 31.6c-.4.4-1.1.6-1.6.3-.6-.2-.9-.8-.9-1.4v-29C1.8.7 2.5 0 3.3 0h25.4c.8 0 1.5.7 1.5 1.5v29c0 .6-.4 1.2-.9 1.4-.2.1-.4.1-.6.1zM4.8 3v23.9l9.4-9.4c.9-.9 2.6-.9 3.5 0l9.4 9.4V3H4.8z"></path>

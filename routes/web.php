@@ -3,6 +3,7 @@
 use App\Models\Post;
 use App\Models\User;
 use Inertia\Inertia;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -25,12 +26,15 @@ Route::get('/', function () {
 });
 */
 
+// Add a limit to loaded posts ...
+// On scroll i can add in the api and fetch with axios ... if user wants to load more posts ... load next 5 ...
 Route::get('/', function() {
     $posts = Post::orderBy('id', 'desc')->get();
     $posts_authors = [];
 
     foreach($posts as $key=>$post) {
         $author = User::find($post->authorID);
+        $comments = Comment::where('postID', $post->id)->orderBy('id', 'desc')->get();
 
         $posts_authors[$key]['author_id'] = $author->id;
         $posts_authors[$key]['author_username'] = $author->username;
@@ -40,6 +44,7 @@ Route::get('/', function() {
         $posts_authors[$key]['post_title'] = $post->title;
         $posts_authors[$key]['post_text'] = $post->text;
         $posts_authors[$key]['post_likes'] = $post->likes;
+        $posts_authors[$key]['post_comments'] = $comments;
     }
 
     // dd($posts_authors);
@@ -103,7 +108,9 @@ Route::get('/settings', function() {
 });
 
 Route::post('/settings', function(Request $request) {
-    $newImageName = time() . '-' . Auth::user()->username . '.' . $request->image->extension();
+    // $newImageName = time() . '-' . Auth::user()->username . '.' . $request->image->extension();
+    $newImageName = Auth::user()->username . '.' . $request->image->extension();
+
     // $image = (strlen($request->image) > 0) ? $request->file('file')->store('uploads') : "empty";
     $request->image->move(public_path('uploads/profile/'), $newImageName);
 
@@ -125,22 +132,6 @@ Route::get('/delall', function() {
     Post::getQuery()->delete();
 
     return redirect('/');
-});
-
-
-// Fire
-Route::put('/post/like/', function(Request $request) {
-    $post = Post::find($request->post_id);
-    $likes = $post->likes += 1;
-    $post->save();
-
-    $user = User::find($request->author_id);
-    $user->likes += 1;
-    $user->save();
-
-    // return redirect('/');
-    // return Inertia::render('/', ['likes' => $likes]);
-    return Inertia::render('/');
 });
 
 
@@ -173,3 +164,4 @@ Route::post('/post', function(Request $request) {
 
     return redirect('/');
 });
+

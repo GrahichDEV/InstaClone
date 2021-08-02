@@ -34,23 +34,29 @@
                     </div>
                 </div>
             </div>
+            <!-- Seperator -->
             <div class="my-5 border-t-2"></div>
+            <!-- Posts foreach ... -->
             <div class="flex flex-row flex-wrap">
-                <div v-for="(post, index) in posts" :key="index">
+                <div v-for="(post, index) in posts" :key="index" @click="showModal(post)">
                     <div class="post-full relative">
                         <img class="post-image object-cover h-80 w-80 p-2" :src="'../uploads/posts/' + post.image">
                         <div class="post-likes absolute top-36 right-36 bg-black h-11 h-11 text-sm font-medium text-center rounded-full p-3 text-white m-auto">
-                            <i class="fas fa-fire mr-1"></i>{{ post.likes }}
+                            <!--<i class="fas fa-fire mr-1"></i>{{ post.likes }}-->
+                            <i class="fas fa-heart mr-1"></i> {{ post.likes }}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <Modal v-on:modal_hide="hideModal()" :modal_visible="modalVisible" v-if="modalVisible" :post="post" :postIds="postIds" :profile="profile"/>
     </div>
 </template>
 <script>
 import Navigation from './components/Navigation'
 import { Link } from '@inertiajs/inertia-vue3'
+import Fire from './components/Fire'
+import Modal from './components/Modal'
 
 export default {
     props: {
@@ -59,9 +65,39 @@ export default {
         profile: Object,
         posts: Array,
     },
+    data() {
+        return {
+            modalVisible: false,
+            post: {},
+            postIds: {},
+        }
+    },
+    methods: {
+        showModal(post) {
+            // Load all modal data
+            /*
+            this.post.image = post.image;
+            this.post.likes = post.likes;
+            this.post.author = this.profile;
+            */
+
+            this.post = post;
+            console.log("this is the post");
+        	console.log(this.post);
+
+            this.postIds = { 'post_id': this.post.id, 'author_id': this.post.authorID };
+
+            this.modalVisible = true;
+        },
+        hideModal() {
+            this.modalVisible = false;
+        },
+    },
     components: {
         Navigation,
-        Link
+        Link,
+        Fire,
+        Modal
     },
     computed: {
         profileUsername() {
@@ -71,6 +107,10 @@ export default {
 }
 </script>
 <style scoped>
+.post-full {
+    cursor: pointer;
+}
+
 .post-full:hover > .post-likes {
     display: inline-block;
     animation: show 1s infinite;
@@ -104,4 +144,50 @@ export default {
     width: 960px;
 }
 
+.modal-container {
+    z-index: 999;
+    animation: show 500ms infinite;
+    animation-iteration-count: 1;
+}
+
+.comments-container {
+    min-height: 390px;
+    max-height: 390px;
+    overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+    width: 0;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+}
+/* Optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+    background: #fff;
+}
+
+.modal-img {
+    min-height: 600px;
+    max-height: 600px;
+
+    min-width: 600px;
+    max-width: 600px;
+
+    object-fit: cover;
+}
+
+.w-custom-965 {
+    width: 964px;
+}
+
+.w-custon-355 {
+    width: 364px;
+}
+
+.w-custom-600 {
+    width: 600px;
+}
+
+.h-custom-600 {
+    height: 600px;
+}
 </style>

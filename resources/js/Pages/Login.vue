@@ -9,8 +9,8 @@
                     <div class="w-10/12 m-auto text-left text-xs text-red-500" v-if="errors.account">{{ errors.account }}</div>
                     <input autocomplete="off" class="w-10/12 py-2 px-2 text-xs my-1 border border-gray-200 bg-gray-100 focus:outline-none" v-model="form.email" name="email" type="text" placeholder="Email">
                     <input autocomplete="off" class="w-10/12 py-2 px-2 text-xs my-1 border border-gray-200 bg-gray-100 focus:outline-none" v-model="form.password" name="password" type="password" placeholder="Password">
-                    <button class="w-10/12 bg-blue-200 mt-3 text-white py-1 rounded">
-                    Next
+                    <button :class="onValueEnter" class="w-10/12 bg-blue-200 mt-3 text-white py-1 rounded">
+                    Log in
                     </button>
                 </form>
                 <div class="w-10/12 text-sm text-gray-300 font-medium text-center m-auto my-3">
@@ -51,6 +51,16 @@ export default {
         login() {
             // Send data to our backend
             this.$inertia.post("/login", this.form);
+        }
+    },
+    computed: {
+        onValueEnter() {
+            if(this.form.email && this.form.password) {
+                if( this.form.email.length > 0 && this.form.password.length)
+                    return 'transition duration-500 ease-in-out bg-blue-400'
+            }
+
+            return 'transition duration-500 ease-in-out bg-blue-200'
         }
     }
 }

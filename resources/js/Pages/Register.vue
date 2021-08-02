@@ -22,7 +22,7 @@
                     <div class="w-10/12 m-auto text-left text-xs text-red-500" v-if="errors.password">{{ errors.password }}</div>
                     <input autocomplete="off" class="w-10/12 py-2 px-2 text-xs my-1 border border-gray-200 bg-gray-100 focus:outline-none" type="password" v-model="form.password" name="password" placeholder="Password">
                     <input autocomplete="off" class="w-10/12 py-2 px-2 text-xs my-1 border border-gray-200 bg-gray-100 focus:outline-none"  type="password" v-model="form.password_confirmation" name="password_confirmation" placeholder="Confirm Password">
-                    <button type="submit" class="w-10/12 bg-blue-200 mt-3 text-white py-1 rounded">
+                    <button type="submit" :class="onValueEnter" class="w-10/12 bg-blue-200 mt-3 text-white py-1 rounded">
                     Next
                     </button>
                 </form>
@@ -66,6 +66,16 @@ export default {
     },
     components: {
         Link,
+    },
+    computed: {
+        onValueEnter() {
+            if(this.form.email && this.form.name && this.form.username && this.form.password && this.form.password_confirmation) {
+                if(this.form.email.length > 0 && this.form.name.length > 0 && this.form.username.length > 0 && this.form.password.length > 0 && this.form.password_confirmation.length > 0)
+                    return 'transition duration-500 ease-in-out bg-blue-400'
+            }
+
+            return 'transition duration-500 ease-in-out bg-blue-200'
+        }
     }
 }
 </script>
